@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studemia Winter Camp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: #1a1a1a;
+            padding: 0.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 50px;
+            width: auto;
+            margin-right: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            color: #4CA1AF;
+            transform: translateY(-2px);
+        }
+
+        /* ハンバーガーメニューのスタイル */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* レスポンシブデザイン */
+        @media screen and (max-width: 768px) {
+            nav {
+                padding: 0.5rem 1rem;
+            }
+
+            .hamburger {
+                display: block;
+                z-index: 101;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                flex-direction: column;
+                background-color: #1a1a1a;
+                padding-top: 70px;
+                transition: right 0.3s ease;
+                gap: 1rem;
+                justify-content: flex-start;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+            }
+
+            .logo-container img {
+                height: 40px;
+            }
+        }
+
+        /* アニメーション用のクラス */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        section {
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #home {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1697988290979-462fbdddad18?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            margin-right: 30rem;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .home-teser{
+            font-family: American Typewriter, serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            position: absolute;
+            top: 60px;
+            left: 15px;
+            text-align: left;
+        }
+
+        .schedule-item {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .venue-info {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .coming-soon {
+            font-size: 1.5rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .organizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .organizer-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .organizer-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .typing {
+            opacity: 0;
+            font-size: 2.5rem;
+            font-family: monospace;
+        }
+        
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer{
+            display: grid;
+            grid-template-columns: 50% 50%;
+            margin: auto;
+            text-justify: inter-word;
+        }
+
+        .break-line {
+            width: 80vw;
+            height: 4px;
+            background: var(--textlight);
+            grid-column: span 3;
+            justify-self: center;
+            border-radius: 5px;
+        }
+
+        .conference-information{
+            font-family: American Typewriter, serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-container">
+            <img src="winter\website\img\winterlogo.png">
+        </div>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#theme">Theme</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#venue">Venue</a></li>
+            <li><a href="#guest">Guest</a></li>
+            <li><a href="#organizer">Organizer</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class ="home-teser">28-29.12.2024<br>Odaiba<br>Tokyo</div>\
+        <!-- <h1>Studemia Winter Camp</h1>
+        <h3>今年一年を振り返り、来る新年に準備せよ</h3>
+        <h3>Odaiba, Tokyo, December 28-29, 2024</h3> -->
+    </section>
+
+    <section id="theme">
+        <h2>Welcome to Studemia Winter Camp</h2>
+        <div class="theme-content">
+            <div class="typing">Theme: 追憶＆未来記憶</div>
+            <p>日々を忙しく生きる学生たちは今年一年を振り返り、何を思うか。</p>
+        </div>
+    </section>
+
+    <section id="schedule">
+        <h2>Schedule</h2>
+        <div class="schedule-grid">
+            <div class="schedule-item">
+                <h3>Day 1</h3>
+                <p>11:50 - Registration</p>
+                <p>12:00 - Opening Ceremony</p>
+                <p>12:30 - Lightning Talk Session</p>
+                <p>15:00 - Break</p>
+                <p>18:00 - Check-In</p>
+                <p>18:30 - Banquet</p>
+                <p>20:00 - Night Session</p>
+            </div>
+            <div class="schedule-item">
+                <h3>Day 2</h3>
+                <p>8:00 - Workshop Sessions</p>
+                <p>12:00 - Ending Ceremony</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="venue">
+        <h2>Venue</h2>
+        <div class="venue-info">
+            <img src="https://www.tokyo-odaiba.net/wp-content/uploads/2018/10/miraikan_01.jpg" alt="Conference Venue" style="max-width: 100%; margin-bottom: 2rem;">
+            <h3>日本科学未来館</h3>
+            <p>〒135-0064<br>東京都江東区青海２丁目３−６</p>
+        </div>
+        <div class="hotel-info">
+            <img src="https://www.maxpart.co.jp/harumi/access/img/hotelInfo_img.jpg" alt="Conference Venue" style="max-width: 100%; margin-bottom: 2rem;">
+            <h3>Lstay&grow晴海</h3>
+            <p>〒104-0053<br>東京都中央区晴海３丁目８−１</p>
+        </div>
+    </section>
+
+    <section id="guest">
+        <h2>Guest Speakers</h2>
+        <div class="coming-soon">
+            Coming Soon...
+        </div>
+    </section>
+
+
+    <section id="organizer">
+        <h2>Organizers</h2>
+        <div class="organizer-grid">
+            <div class="organizer-card">
+                <img src="https://pbs.twimg.com/profile_images/1719553746991235072/qzlc7WBZ_400x400.jpg" alt="Organizer 1">
+                <h3>Kosuke Shimizu</h3>
+                <p>General Chair</p>
+                <p>Twitter:@hong_shui26288</p>
+            </div>
+            <div class="organizer-card">
+                <img src="https://pbs.twimg.com/profile_images/1748737317093974016/Xb_Uw8mv_400x400.jpg" alt="Organizer 2">
+                <h3>Kent Kawamura</h3>
+                <p>Lightning Talk Chair/ Sponsorship Chair</p>
+                <p>Twitter:@Kent1729</p>
+            </div>
+            <div class="organizer-card">
+                <img src="https://pbs.twimg.com/profile_images/1803063708081438720/0E0sVE9J_400x400.jpg" alt="Organizer 3">
+                <h3>Rui Takano</h3>
+                <p>Vennue Chair</p>
+                <p>Twitter:@esc_voiced_iD</p>
+            </div>
+            <div class="organizer-card">
+                <img src="https://pbs.twimg.com/profile_images/1794497285604438016/4GV6dL5o_400x400.jpg" alt="Organizer 3">
+                <h3>Shinnichi Machiyama</h3>
+                <p>Content Chair</p>
+                <p>Twitter:@Ekoro764</p>
+            </div>
+        </div>
+    </section>
+
+    <div class ='footer'>
+        <div class="break-line"></div>
+        <div class="conference-information">
+            <p>Conference Information</p>
+            <img src="">
+            <p>28-29 December 2024, Odaiba, Tokyo</p>
+            <p>2th Studemia Conference</p>
+        </div>
+        <div class="Sponsorship">
+            <h2>Sponsor</h2>
+            <div class ="SponsorChair">
+                <img src="https://pbs.twimg.com/profile_images/1759212925351608320/vFAZJSe6_400x400.jpg">
+                <h3>学術バーQ</h3>
+            </div>
+        </div>
+    </section>
+        
+    </section>  
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // ナビゲーションリンクをクリックしたときにメニューを閉じる
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.bottom <= window.innerHeight
+            );
+        }
+
+        function typeText(element, text, index = 0) {
+            if (index < text.length) {
+                element.textContent = text.substring(0, index + 1);
+                setTimeout(() => typeText(element, text, index + 1), 100);
+            }
+        }
+
+        window.addEventListener('scroll', function() {
+            document.querySelectorAll('.typing').forEach(element => {
+                if (isElementInViewport(element) && element.style.opacity !== '1') {
+                    element.style.opacity = '1';
+                    const text = element.textContent;
+                    element.textContent = '';
+                    typeText(element, text);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
