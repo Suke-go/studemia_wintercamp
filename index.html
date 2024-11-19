@@ -985,24 +985,62 @@
             color: transparent;
         }
 
+        .logo-animation {
+            max-width: 300px;  /* 最大幅を設定 */
+            width: 100%;       /* 親要素に対して100%に */
+            height: auto;      /* アスペクト比を維持 */
+            margin: 0 auto 2rem;
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease forwards, float 6s ease-in-out infinite;
+        }
+        
+        /* モバイル対応 */
+        @media screen and (max-width: 768px) {
+            .logo-animation {
+                max-width: 200px;  /* モバイルでは小さく */
+                margin: 0 auto 1.5rem;
+            }
+        }
+        
+        /* 小さいスマートフォン向け */
+        @media screen and (max-width: 375px) {
+            .logo-animation {
+                max-width: 150px;
+            }
+        }
+        
+        /* 画像コンテナのスタイル */
         .logo-container {
+            width: 100%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            margin-bottom: 2rem;
         }
-
-        .logo-container img {
-            height: 60px;
-            width: auto;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        
+        /* アニメーション定義 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        .logo-container p {
-            font-size: 0.9rem;
-            opacity: 0.7;
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
-
+        
         .conference-details {
             display: flex;
             flex-direction: column;
