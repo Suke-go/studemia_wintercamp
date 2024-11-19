@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studemia Winter Camp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2C3E50;
+            --accent-color: #3498DB;
+            --winter-blue: #A8D8FF;
+            --ice-color: #E8F4FF;
+            --text-dark: #2C3E50;
+            --text-light: #ECF0F1;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
             line-height: 1.6;
+            background-color: var(--ice-color);
+            color: var(--text-dark);
         }
 
+        /* モダンなナビゲーションバー */
         nav {
-            background-color: #1a1a1a;
-            padding: 0.5rem 2rem;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
 
         .logo-container {
@@ -36,6 +51,7 @@
             height: 50px;
             width: auto;
             margin-right: 1rem;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
         }
 
         nav ul {
@@ -43,50 +59,1057 @@
             justify-content: center;
             list-style: none;
             gap: 2rem;
-            margin: 0;
-            padding: 0;
         }
 
         nav a {
-            color: white;
+            color: var(--text-light);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
-            font-size: 1rem;
+            border-radius: 4px;
         }
 
         nav a:hover {
-            color: #4CA1AF;
+            color: var(--winter-blue);
+            background: rgba(255,255,255,0.1);
             transform: translateY(-2px);
         }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0.5rem;
+        #home {
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)),
+                        url('https://images.unsplash.com/photo-1697988290979-462fbdddad18?q=80&w=1772&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 2rem;
         }
 
-        .hamburger span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 5px 0;
+        .home-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-animation {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        .home-teaser {
+            font-family: 'Montserrat', serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center;
+            background: linear-gradient(135deg, var(--winter-blue), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease forwards 0.5s;
+        }
+
+        .home-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease forwards 1s;
+        }
+
+        .home-date,
+        .home-location {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             transition: all 0.3s ease;
+        }
+
+        .home-date:hover,
+        .home-location:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         /* レスポンシブデザイン */
         @media screen and (max-width: 768px) {
+            #home {
+                padding: 4rem 1rem;
+                background-attachment: scroll;
+            }
+
+            .logo-animation {
+                width: 150px;
+                height: 150px;
+            }
+
+            .home-teaser {
+                padding: 0 1rem;
+            }
+
+            .home-info {
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            .home-date,
+            .home-location {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 雪のアニメーション改善 */
+        .snowflake {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: snowfall linear infinite;
+            z-index: 1;
+        }
+
+        /* モダンなセクションデザイン */
+        section {
+            padding: 6rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--ice-color);
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: white;
+        }
+
+        .welcome {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+        #schedule {
+            background: linear-gradient(135deg, var(--ice-color), #ffffff);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #schedule h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            text-align: center;
+            width: 100%;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .schedule-item {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 
+                0 4px 15px rgba(0,0,0,0.1),
+                inset 0 0 20px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 8px 25px rgba(0,0,0,0.15),
+                inset 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .schedule-item h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--winter-blue);
+            text-align: center;
+        }
+
+        .schedule-time-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-time-item:hover {
+            background: rgba(168, 216, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .time {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-right: 1rem;
+            min-width: 70px;
+        }
+
+        .event {
+            color: var(--text-dark);
+        }
+        #venue {
+            background: linear-gradient(135deg, var(--ice-color), #ffffff);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #venue h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .venues-container {
+            display: flex;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .venue-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .venue-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .venue-image-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .venue-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .venue-card:hover .venue-image {
+            transform: scale(1.1);
+        }
+
+        .venue-content {
+            padding: 2rem;
+        }
+
+        .venue-type {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .venue-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .venue-address {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .venue-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .venue-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .venue-info-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-color);
+        }
+
+        .directions-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .directions-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* アニメーション用の装飾 */
+        .snow-particle {
+            position: absolute;
+            background: white;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: snowFloat 10s linear infinite;
+        }
+
+        @keyframes snowFloat {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* レスポンシブデザイン */
+        @media screen and (max-width: 768px) {
+            #venue {
+                padding: 4rem 1rem;
+            }
+
+            .venues-container {
+                gap: 2rem;
+            }
+
+            .venue-card {
+                min-width: 100%;
+            }
+
+            .venue-image-container {
+                height: 200px;
+            }
+        }
+
+        /* 装飾的な雪の結晶 */
+        .snowflake-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .schedule-item {
+                padding: 1.5rem;
+            }
+
+            #schedule h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* モダンなボタンデザイン */
+        #registration .register-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #registration .register-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+
+        /* Welcome Section Styles */
+        .welcome-section {
+            background: linear-gradient(135deg, var(--ice-color), #ffffff);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .theme-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .typing {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-family: 'Montserrat', monospace;
+            margin-bottom: 2rem;
+            opacity: 1;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .description {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .description h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        /* Organizer Section Styles */
+        #organizer {
+            background: linear-gradient(135deg, #ffffff, var(--ice-color));
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #organizer h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin-bottom: 3rem;
+        }
+
+        .organizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .organizer-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .organizer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .organizer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(var(--winter-blue-rgb), 0.1), rgba(var(--accent-color-rgb), 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .organizer-card:hover::before {
+            opacity: 1;
+        }
+
+        .organizer-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .organizer-card:hover .organizer-image {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .organizer-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .organizer-role {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .organizer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .welcome-section, #organizer {
+                padding: 4rem 1rem;
+            }
+
+            .description {
+                padding: 1.5rem;
+            }
+
+            .organizer-grid {
+                gap: 1.5rem;
+            }
+
+            .organizer-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Snow Animation */
+        .snow {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100vh) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .footer {
+            background: linear-gradient(to bottom, var(--primary-color), #1a1a1a);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .break-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--winter-blue), transparent);
+            grid-column: 1 / -1;
+            margin: 2rem 0;
+        }
+
+        .conference-information {
+            text-align: left;
+        }
+
+        .conference-information p {
+            font-family: 'Montserrat', serif;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .conference-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--winter-blue), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .logo-container img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        .logo-container p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .conference-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .conference-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .conference-detail-item svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .sponsorship {
+            text-align: left;
+        }
+
+        .sponsorship h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--winter-blue), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .sponsor-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sponsor-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Decoration */
+        .footer-snow {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.2;
+            animation: footerSnowfall linear infinite;
+        }
+
+        @keyframes footerSnowfall {
+            0% {
+                transform: translateY(-20px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .footer {
+                padding: 3rem 1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .conference-title,
+            .sponsorship h2 {
+                font-size: 1.5rem;
+            }
+
+            .logo-container {
+                justify-content: center;
+            }
+
+            .logo-container img {
+                height: 50px;
+            }
+        }.footer {
+            background: linear-gradient(to bottom, var(--primary-color), #1a1a1a);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .break-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--winter-blue), transparent);
+            grid-column: 1 / -1;
+            margin: 2rem 0;
+        }
+
+        .conference-information {
+            text-align: left;
+        }
+
+        .conference-information p {
+            font-family: 'Montserrat', serif;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .conference-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--winter-blue), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .logo-container img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        .logo-container p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .conference-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .conference-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .conference-detail-item svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .sponsorship {
+            text-align: left;
+        }
+
+        .sponsorship h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--winter-blue), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .sponsor-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sponsor-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Decoration */
+        .footer-snow {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.2;
+            animation: footerSnowfall linear infinite;
+        }
+
+        @keyframes footerSnowfall {
+            0% {
+                transform: translateY(-20px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .footer {
+                padding: 3rem 1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .conference-title,
+            .sponsorship h2 {
+                font-size: 1.5rem;
+            }
+
+            .logo-container {
+                justify-content: center;
+            }
+
+            .logo-container img {
+                height: 50px;
+            }
+        }
+        /* レスポンシブデザイン */
+        @media screen and (max-width: 768px) {
+            .welcome {
+                font-size: 2.5rem;
+            }
+
+            .home-teaser {
+                font-size: 1.5rem;
+            }
+
             nav {
                 padding: 0.5rem 1rem;
             }
 
             .hamburger {
                 display: block;
-                z-index: 101;
             }
 
             nav ul {
@@ -96,195 +1119,14 @@
                 height: 100vh;
                 width: 70%;
                 flex-direction: column;
-                background-color: #1a1a1a;
+                background: var(--primary-color);
                 padding-top: 70px;
                 transition: right 0.3s ease;
-                gap: 1rem;
-                justify-content: flex-start;
             }
 
             nav ul.active {
                 right: 0;
             }
-
-            nav ul li {
-                width: 100%;
-                text-align: center;
-            }
-
-            nav ul li a {
-                display: block;
-                padding: 1rem;
-            }
-
-            .logo-container img {
-                height: 40px;
-            }
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        section {
-            padding: 4rem 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #home {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1697988290979-462fbdddad18?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            margin-right: 30rem;
-        }
-
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .welcome{
-            text-align: center;
-            font-size: 3.5rem;
-        }
-
-
-        
-        .home-teser{
-            font-family: American Typewriter, serif;
-            font-weight: 600;
-            font-size: 1.5rem;
-            position: absolute;
-            top: 60px;
-            left: 15px;
-            text-align: left;
-        }
-
-        .schedule-item {
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .venue-info {
-            max-width: 800px;
-            text-align: center;
-        }
-
-        .coming-soon {
-            font-size: 1.5rem;
-            color: #666;
-            text-align: center;
-        }
-
-        .organizer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .organizer-card {
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .organizer-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-        }
-
-        .typing {
-            opacity: 0;
-            font-size: 2.5rem;
-            font-family: monospace;
-        }
-        
-        .section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .description {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-        }
-        
-        .description h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
-        
-        .description p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #444;
-            text-align: justify;
-            margin: 0;
-        }
-
-        .footer{
-            display: grid;
-            grid-template-columns: 50% 50%;
-            margin: auto;
-            text-justify: inter-word;
-        }
-
-        .break-line {
-            width: 80vw;
-            height: 4px;
-            background: var(--textlight);
-            grid-column: span 3;
-            justify-self: center;
-            border-radius: 5px;
-        }
-
-        .conference-information{
-            font-family: American Typewriter, serif;
-            font-weight: 600;
-            font-size: 1.5rem;
-            text-align: center;
         }
 
     </style>
@@ -292,7 +1134,7 @@
 <body>
     <nav>
         <div class="logo-container">
-            <img src="img/winterlogo.png">
+            <img src="winter\website\img\winterlogo.png">
         </div>
         <button class="hamburger">
             <span></span>
@@ -310,52 +1152,132 @@
     </nav>
 
     <section id="home">
-        <div class ="home-teser">28-29.12.2024<br>Odaiba<br>Tokyo</div>\
+        <div class="home-content">
+            <img src="img/winterlogo.png" alt="Winter Camp Logo" class="logo-animation">
+            <div class="home-teaser">Studemia Winter Camp 2024</div>
+            <div class="home-info">
+                <div class="home-date">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A2,2,0,0,0,3,6V20a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2V6A2,2,0,0,0,19,4Z"/>
+                    </svg>
+                    28-29 December 2024
+                </div>
+                <div class="home-location">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A7,7,0,0,0,5,9c0,5.25,7,13,7,13s7-7.75,7-13A7,7,0,0,0,12,2Z"/>
+                    </svg>
+                    Odaiba, Tokyo
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="theme">
-        <div class="welcome">Studemia Winter Camp</div>
+    <section id="theme" class="welcome-section">
+        <div class="welcome-title">Studemia Winter Camp</div>
         <div class="theme-content">
             <div class="typing">Theme: IMAGINE THE NEXT YEAR</div>
-            <p>忙しかった一年ももう終わり。年の瀬に自分の辿ってきた一年を振り返り、来年を想え。<br></p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">忙しかった一年ももう終わり。年の瀬に自分の辿ってきた一年を振り返り、来年を想え。</p>
         </div>
         <div class="description">
             <h1>What is Studemia?</h1>
-            <p>Studemiaは，2022年に立ち上げられた団体です．東京大学グローバルサイエンスキャンパスの参加者を中心として，中高生と多様な社会人をつなぐ活動を行ってきました．メンバーの受験を機に，一度は自然消滅した団体でしたが，2024年春，主要メンバーが大学受験を終えたため，再び活動を再開しました．再開後は，メンバー同士で自分たちの取り組んでいる研究活動をあえて批判的に考えてみたり，研究室の中ではなかなか触れないような分野について本を読んで議論してみたりと，[* 肩の力を抜いて自分たちの視野を広げる活動]をしてまいりました．そしてこの度，この取り組みを大々的に行ってみようとのことで，本合宿の開催に至りました．合宿には，自分自身の研究課題を本格的に持って活動をしている人から，まだ研究課題は見つけていないが，様々な本を読んで自分の視点を広げようとしている人までたくさんいます．今回の合宿の中で，ぜひ研究室で研究活動だけしていては見つけられないような発見が皆さんにあることを願っております．</p>
+            <p>Studemiaは，2022年に立ち上げられた団体です．東京大学グローバルサイエンスキャンパスの参加者を中心として，中高生と多様な社会人をつなぐ活動を行ってきました．メンバーの受験を機に，一度は自然消滅した団体でしたが，2024年春，主要メンバーが大学受験を終えたため，再び活動を再開しました．</p>
+            <p>再開後は，メンバー同士で自分たちの取り組んでいる研究活動をあえて批判的に考えてみたり，研究室の中ではなかなか触れないような分野について本を読んで議論してみたりと，肩の力を抜いて自分たちの視野を広げる活動をしてまいりました．</p>
+            <p>そしてこの度，この取り組みを大々的に行ってみようとのことで，本合宿の開催に至りました．合宿には，自分自身の研究課題を本格的に持って活動をしている人から，まだ研究課題は見つけていないが，様々な本を読んで自分の視点を広げようとしている人までたくさんいます．今回の合宿の中で，ぜひ研究室で研究活動だけしていては見つけられないような発見が皆さんにあることを願っております．</p>
+        </div>
     </section>
+    
 
     <section id="schedule">
         <h2>Schedule</h2>
         <div class="schedule-grid">
             <div class="schedule-item">
                 <h3>Day 1</h3>
-                <p>12:00 - 開始</p>
-                <p>12:30 - LT会</p>
-                <p>15:00 - 休憩</p>
-                <p>18:00 - チェックイン</p>
-                <p>18:30 - 夕食</p>
-                <p>20:00 - 夜の会</p>
+                <p>11:50 - Registration</p>
+                <p>12:00 - Opening Ceremony</p>
+                <p>12:30 - Lightning Talk Session</p>
+                <p>15:00 - Break</p>
+                <p>18:00 - Check-In</p>
+                <p>18:30 - Banquet</p>
+                <p>20:00 - Night Session</p>
             </div>
             <div class="schedule-item">
                 <h3>Day 2</h3>
-                <p>7:00 - 朝食</p>
-                <p>8:00 - ワークショップ</p>p
-                <p>12:00 - 閉会</p>
+                <p>8:00 - Workshop Sessions</p>
+                <p>12:00 - Ending Ceremony</p>
             </div>
         </div>
     </section>
 
     <section id="venue">
         <h2>Venue</h2>
-        <div class="venue-info">
-            <img src="https://www.tokyo-odaiba.net/wp-content/uploads/2018/10/miraikan_01.jpg" alt="Conference Venue" style="max-width: 100%; margin-bottom: 2rem;">
-            <h3>日本科学未来館</h3>
-            <p>〒135-0064<br>東京都江東区青海２丁目３−６</p>
-        </div>
-        <div class="venue-info">
-            <img src="https://www.maxpart.co.jp/harumi/access/img/hotelInfo_img.jpg" alt="Conference Venue" style="max-width: 100%; margin-bottom: 2rem;">
-            <h3>Lstay&grow晴海</h3>
-            <p>〒104-0053<br>東京都中央区晴海３丁目８−１</p>
+        <div class="venues-container">
+            <!-- 日本科学未来館 -->
+            <div class="venue-card">
+                <div class="venue-image-container">
+                    <img src="https://www.tokyo-odaiba.net/wp-content/uploads/2018/10/miraikan_01.jpg" 
+                         alt="日本科学未来館" 
+                         class="venue-image">
+                </div>
+                <div class="venue-content">
+                    <span class="venue-type">Conference Venue</span>
+                    <h3 class="venue-name">日本科学未来館</h3>
+                    <p class="venue-address">〒135-0064<br>東京都江東区青海２丁目３−６</p>
+                    <div class="venue-info-grid">
+                        <div class="venue-info-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span>お台場エリア</span>
+                        </div>
+                        <div class="venue-info-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            <span>Day 1: 12:00-18:00</span>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps?q=日本科学未来館" target="_blank" class="directions-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+                        </svg>
+                        アクセス
+                    </a>
+                </div>
+            </div>
+    
+            <!-- Lstay&grow晴海 -->
+            <div class="venue-card">
+                <div class="venue-image-container">
+                    <img src="https://www.maxpart.co.jp/harumi/access/img/hotelInfo_img.jpg" 
+                         alt="Lstay&grow晴海" 
+                         class="venue-image">
+                </div>
+                <div class="venue-content">
+                    <span class="venue-type">Accommodation</span>
+                    <h3 class="venue-name">Lstay&grow晴海</h3>
+                    <p class="venue-address">〒104-0053<br>東京都中央区晴海３丁目８−１</p>
+                    <div class="venue-info-grid">
+                        <div class="venue-info-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v10h22v-6c0-2.21-1.79-4-4-4z"/>
+                            </svg>
+                            <span>宿泊施設</span>
+                        </div>
+                        <div class="venue-info-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            <span>Check-in: 18:00</span>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps?q=Lstay&grow晴海" target="_blank" class="directions-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+                        </svg>
+                        アクセス
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -371,124 +1293,181 @@
         <h2>Organizers</h2>
         <div class="organizer-grid">
             <div class="organizer-card">
-                <img src="https://pbs.twimg.com/profile_images/1719553746991235072/qzlc7WBZ_400x400.jpg" alt="Organizer 1">
-                <h3>Kosuke Shimizu</h3>
-                <p>General Chair</p>
-                <p>Twitter:@hong_shui26288</p>
+                <img src="https://pbs.twimg.com/profile_images/1719553746991235072/qzlc7WBZ_400x400.jpg" alt="Kosuke Shimizu" class="organizer-image">
+                <h3 class="organizer-name">Kosuke Shimizu</h3>
+                <p class="organizer-role">General Chair</p>
+                <div class="organizer-social">
+                    <a href="https://twitter.com/hong_shui26288" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                        Twitter
+                    </a>
+                </div>
             </div>
+    
             <div class="organizer-card">
-                <img src="https://pbs.twimg.com/profile_images/1748737317093974016/Xb_Uw8mv_400x400.jpg" alt="Organizer 2">
-                <h3>Kent Kawamura</h3>
-                <p>Lightning Talk Chair/ Sponsorship Chair</p>
-                <p>Twitter:@Kent1729</p>
+                <img src="https://pbs.twimg.com/profile_images/1748737317093974016/Xb_Uw8mv_400x400.jpg" alt="Kent Kawamura" class="organizer-image">
+                <h3 class="organizer-name">Kent Kawamura</h3>
+                <p class="organizer-role">Lightning Talk Chair / Sponsorship Chair</p>
+                <div class="organizer-social">
+                    <a href="https://twitter.com/Kent1729" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                        Twitter
+                    </a>
+                </div>
             </div>
+    
             <div class="organizer-card">
-                <img src="https://pbs.twimg.com/profile_images/1803063708081438720/0E0sVE9J_400x400.jpg" alt="Organizer 3">
-                <h3>Rui Takano</h3>
-                <p>Vennue Chair</p>
-                <p>Twitter:@esc_voiced_iD</p>
+                <img src="https://pbs.twimg.com/profile_images/1803063708081438720/0E0sVE9J_400x400.jpg" alt="Rui Takano" class="organizer-image">
+                <h3 class="organizer-name">Rui Takano</h3>
+                <p class="organizer-role">Venue Chair</p>
+                <div class="organizer-social">
+                    <a href="https://twitter.com/esc_voiced_iD" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                        Twitter
+                    </a>
+                </div>
             </div>
+    
             <div class="organizer-card">
-                <img src="https://pbs.twimg.com/profile_images/1794497285604438016/4GV6dL5o_400x400.jpg" alt="Organizer 3">
-                <h3>Shinnichi Machiyama</h3>
-                <p>Content Chair</p>
-                <p>Twitter:@Ekoro764</p>
+                <img src="https://pbs.twimg.com/profile_images/1794497285604438016/4GV6dL5o_400x400.jpg" alt="Shinnichi Machiyama" class="organizer-image">
+                <h3 class="organizer-name">Shinnichi Machiyama</h3>
+                <p class="organizer-role">Content Chair</p>
+                <div class="organizer-social">
+                    <a href="https://twitter.com/Ekoro764" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                        Twitter
+                    </a>
+                </div>
             </div>
         </div>
     </section>
+    
 
-    <section id="registration" style="padding: 4rem 2rem; text-align: center;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">Registration</h2>
-        <div class="description" style="margin-bottom: 2rem;">
-            <p style="font-size: 1.2rem; color: #444; margin-bottom: 1rem;">
-                参加をご希望の方は、以下のボタンから登録フォームにお進みください。<br>
-                参加費: 15000円以内<br>
-                定員: 20名ほど（先着順）<br>
-                応募締切: 2024年12月1日
-            </p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="conference-information">
+                <h3 class="conference-title">Conference Information</h3>
+                <div class="logo-container">
+                    <img src="img/winterlogo.png" alt="Winter Camp Logo">
+                    <p>Logo designed by Rui Takano</p>
+                </div>
+                <div class="conference-details">
+                    <div class="conference-detail-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A2,2,0,0,0,3,6V20a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2V6A2,2,0,0,0,19,4Z"/>
+                        </svg>
+                        <span>28-29 December 2024</span>
+                    </div>
+                    <div class="conference-detail-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12,2A7,7,0,0,0,5,9c0,5.25,7,13,7,13s7-7.75,7-13A7,7,0,0,0,12,2Z"/>
+                        </svg>
+                        <span>Odaiba, Tokyo</span>
+                    </div>
+                    <div class="conference-detail-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,17h-2v-2h2V17z M13,13h-2V7h2V13z"/>
+                        </svg>
+                        <span>2nd Studemia Conference</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="sponsorship">
+                <h2>Sponsor</h2>
+                <div class="sponsor-content">
+                    <p>Coming soon...</p>
+                    <p>募集中</p>
+                </div>
+            </div>
+    
+            <div class="break-line"></div>
         </div>
-        <div id="registration-button" style="display: flex; justify-content: center;">
-            <a href="https://forms.gle/caMXk13CnKWuahaGA" 
-               style="
-                    display: inline-block;
-                    padding: 1rem 2.5rem;
-                    font-size: 1.2rem;
-                    font-weight: bold;
-                    color: white;
-                    background-color: #1a1a1a;
-                    border-radius: 8px;
-                    text-decoration: none;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-               "
-               onmouseover="this.style.backgroundColor='#4CA1AF'; this.style.transform='translateY(-2px)'"
-               onmouseout="this.style.backgroundColor='#1a1a1a'; this.style.transform='translateY(0)'"
-            >
-                Register Here!
-            </a>
-        </div>
-    </section>
-            
+    </footer>
 
-    <div class ='footer'>
-        <div class="break-line"></div>
-        <div class="conference-information">
-            <p>Conference Information</p>
-            <div class="logo-container">
-                <img src="img/winterlogo.png">
-                <p>Logo is made by Rui Takano</p>
-            </div>
-            <p>28-29 December 2024, Odaiba, Tokyo</p>
-            <p>2th Studemia Conference</p>
-        </div>
-        <div class="Sponsorship">
-            <h2>Sponsor</h2>
-            <p>Coming soon.../募集中</p>
-            </div>
-        </div>
-    </section>
-        
-    </section>  
     <script>
-        const hamburger = document.querySelector('.hamburger');
-        const nav = document.querySelector('nav ul');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            nav.classList.toggle('active');
-        });
-
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                nav.classList.remove('active');
-            });
-        });
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.bottom <= window.innerHeight
-            );
-        }
-
-        function typeText(element, text, index = 0) {
-            if (index < text.length) {
-                element.textContent = text.substring(0, index + 1);
-                setTimeout(() => typeText(element, text, index + 1), 100);
+        function createSnowflakes() {
+            const homeSection = document.getElementById('home');
+            const numberOfSnowflakes = 50;
+            
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // ランダムなサイズと位置
+                const size = Math.random() * 4 + 2;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${Math.random() * 100}%`;
+                
+                // ランダムな開始位置とアニメーション時間
+                snowflake.style.top = `-${Math.random() * 100}%`;
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                homeSection.appendChild(snowflake);
             }
         }
 
-        window.addEventListener('scroll', function() {
-            document.querySelectorAll('.typing').forEach(element => {
-                if (isElementInViewport(element) && element.style.opacity !== '1') {
-                    element.style.opacity = '1';
-                    const text = element.textContent;
-                    element.textContent = '';
-                    typeText(element, text);
-                }
+        // ロゴのフロートアニメーション
+        function initLogoAnimation() {
+            const logo = document.querySelector('.logo-animation');
+            logo.style.animation = 'fadeInUp 1.5s ease forwards, float 6s ease-in-out infinite';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            initLogoAnimation();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            createIceElements();
+            
+            // ハンバーガーメニューの既存のコード
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('nav ul');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('active');
+                });
             });
         });
+        // 雪の装飾エフェクト
+        function createSnowParticles() {
+            const venue = document.getElementById('venue');
+            const numberOfParticles = 30;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'snow-particle';
+                
+                // ランダムな位置とアニメーション
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.opacity = Math.random() * 0.6 + 0.2;
+                
+                venue.appendChild(particle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', createSnowParticles);
+
     </script>
 </body>
 </html>
